@@ -3,11 +3,11 @@
 session_start();
 require_once 'config.php';
 
-if (isset($_POST[''])) {
-    $name = $_POST[''];
-    $email = $_POST[''];
-    $password = password_hash($_POST[''], PASSWORD_DEFAULT);
-    $name = $_POST[''];
+if (isset($_POST['register'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $name = $_POST['role'];
 
     $checkEmail = $conn->query("SELECT email FROM users WHERE email = '$email'");
     if ($checkEmail->num_rows > 0) {
@@ -18,4 +18,28 @@ if (isset($_POST[''])) {
     }
     header("Location: index.php");
     exit();
+}
+
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $Result = $conn->query("SELECT * FROM users WHERE email = '$email'");
+    if ($Result->num_rows >0) {
+    $users = $result -> fetch_assoc();
+    if (password_verify($password, $user['password'])) {
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['email'] = $user['email'];
+
+        if ($user['role'] === 'admin') {
+            header("Location: admin_page.php");
+        } else {
+            header("Location: user_page.php");
+
+        }
+        $_SESSION['login_error'] = 'Incorrect email or password';
+        $_SESSION['active_form'] = 'login';
+        header("Location: index.php");
+    }
+    }
 }
