@@ -1,0 +1,38 @@
+# Prevent sensitive files from being committed
+
+# Environment configuration files
+.env
+*.env.*
+/config/config.php # If your database config is in a separate file
+
+# Database credentials or dumps
+/database/*.sqlite
+/database/*.sql
+*.sqlite
+*.sql
+*.bak
+*.backup
+
+# Log files
+*.log
+/logs
+
+# Dependency directories
+/vendor/
+/node_modules/
+/bower_components/
+/tmp/
+/temp/
+
+# IDE specific files
+.idea/
+*.swp
+*~
+sftp-config.json
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Add any other files or directories that should not be tracked by Git
