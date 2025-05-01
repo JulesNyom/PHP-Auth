@@ -1,12 +1,30 @@
 <?php
+  $db_host = '127.0.0.1';
+  $db_user = 'root';
+  $db_password = '';
+  $db_db = '';
+  $db_port = 8889;
 
-$host = getenv('DB_HOST');
-$database = $_ENV['DB_DATABASE'];
-$name = $_ENV['DB_USERNAME'];
-$password = getenv('DB_PASSWORD');
+  $mysqli = new mysqli(
+    $db_host,
+    $db_user,
+    $db_password,
+    $db_db,
+	$db_port
+  );
+	
+  if ($mysqli->connect_error) {
+    echo 'Errno: '.$mysqli->connect_errno;
+    echo '<br>';
+    echo 'Error: '.$mysqli->connect_error;
+    exit();
+  }
 
-$conn = new mysqli($host, $name, $password, $database);
+  echo 'Success: A proper connection to MySQL was made.';
+  echo '<br>';
+  echo 'Host information: '.$mysqli->host_info;
+  echo '<br>';
+  echo 'Protocol version: '.$mysqli->protocol_version;
 
-if ($conn -> connect_error) {
-    die("Connection failed: ". $conn ->connect_error);
-}
+  $mysqli->close();
+?>
